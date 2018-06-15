@@ -26,8 +26,8 @@ import java.util.Arrays;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import hello.storage.StorageFileNotFoundException;
-import hello.storage.StorageService;
+import buildservice.storage.StorageFileNotFoundException;
+import buildservice.storage.StorageService;
 
 
 @RestController

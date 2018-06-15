@@ -50,19 +50,10 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public BuildItemProcessor processor() {
+    public BuildItemProcessor buildProcessor() {
         return new BuildItemProcessor();
     }
 
-    @Bean
-    public BuildItemProcessor processor() {
-        return new BuildItemProcessor();
-    }
-
-    @Bean
-    public BuildItemProcessor processor() {
-        return new BuildItemProcessor();
-    }
 
     @Bean
     public JdbcBatchItemWriter<Build> writer(DataSource dataSource) {
@@ -97,25 +88,4 @@ public class BatchConfiguration {
     }
     // end::jobstep[]
 
-    //place result in S3
-    @Bean
-    public Step step2(JdbcCursorItemReader<Build> reader, JdbcBatchItemWriter<Build> writer) {
-        return stepBuilderFactory.get("step2")
-            .<Build, Build> chunk(10)
-            .reader(reader)
-            .processor(s3Processor())
-            .writer(writer)
-            .build();
-    }
-
-    //fire deploy service
-    @Bean
-    public Step step3(JdbcCursorItemReader<Build> reader, JdbcBatchItemWriter<Build> writer) {
-        return stepBuilderFactory.get("step3")
-            .<Build, Build> chunk(10)
-            .reader(reader)
-            .processor(deployProcessor())
-            .writer(writer)
-            .build();
-    }
 }

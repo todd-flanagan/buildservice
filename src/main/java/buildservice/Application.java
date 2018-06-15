@@ -12,8 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 
 
-import hello.storage.StorageProperties;
-import hello.storage.StorageService;
+import buildservice.storage.StorageProperties;
+import buildservice.storage.StorageService;
 
 @SpringBootApplication
 @EnableConfigurationProperties(StorageProperties.class)
