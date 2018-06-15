@@ -11,6 +11,7 @@ import buildservice.Build;
 import buildservice.storage.StorageService;
 import java.nio.file.Path;
 import buildservice.services.S3Services;
+import buildservice.services.DeployService;
 
 
 public class BuildItemProcessor implements ItemProcessor<Build, Build> {
@@ -26,6 +27,10 @@ public class BuildItemProcessor implements ItemProcessor<Build, Build> {
 
     @Autowired
     private S3Services s3Service;
+
+    @Autowired
+    private DeployService deployService;
+
 
     @Override
     public Build process(final Build build) throws Exception {
@@ -44,6 +49,8 @@ public class BuildItemProcessor implements ItemProcessor<Build, Build> {
         log.info("deleted (" + updated + ") records");
 
         s3Service.uploadFile(build.getCtf());
+
+        deployService.deploy(build.getCtf());
 
         return transformedBuild;
     }
