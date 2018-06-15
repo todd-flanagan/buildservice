@@ -24,6 +24,9 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.batch.item.database.builder.JdbcCursorItemReaderBuilder;
 import org.springframework.batch.item.database.JdbcCursorItemReader;
+import buildservice.processor.BuildItemProcessor;
+import buildservice.processor.S3Processor;
+import buildservice.processor.DeployProcessor;
 
 @Configuration
 @EnableBatchProcessing
@@ -50,18 +53,18 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public BuildItemProcessor processor() {
+    public BuildItemProcessor buildProcessor() {
         return new BuildItemProcessor();
     }
 
     @Bean
-    public BuildItemProcessor processor() {
-        return new BuildItemProcessor();
+    public S3Processor s3Processor() {
+        return new S3Processor();
     }
 
     @Bean
-    public BuildItemProcessor processor() {
-        return new BuildItemProcessor();
+    public DeployProcessor deployProcessor() {
+        return new DeployProcessor();
     }
 
     @Bean

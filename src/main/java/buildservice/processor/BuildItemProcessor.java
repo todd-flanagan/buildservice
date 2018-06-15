@@ -1,4 +1,4 @@
-package buildservice;
+package buildservice.processor;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,7 +7,7 @@ import org.springframework.batch.item.ItemProcessor;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import buildservice.Build;
 
 public class BuildItemProcessor implements ItemProcessor<Build, Build> {
 
