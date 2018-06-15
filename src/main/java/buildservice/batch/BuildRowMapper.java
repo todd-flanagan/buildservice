@@ -1,4 +1,4 @@
-package buildservice;
+package buildservice.batch;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

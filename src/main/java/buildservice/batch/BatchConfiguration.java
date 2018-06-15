@@ -1,4 +1,4 @@
-package buildservice;
+package buildservice.batch;
 
 import javax.sql.DataSource;
 
