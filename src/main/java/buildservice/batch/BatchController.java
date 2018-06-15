@@ -1,4 +1,4 @@
-package buildservice;
+package buildservice.batch;
 
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +9,7 @@ import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import buildservice.Build;
 
 @RestController
 public class BatchController {

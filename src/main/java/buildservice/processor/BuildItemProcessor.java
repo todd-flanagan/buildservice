@@ -1,4 +1,4 @@
-package buildservice;
+package buildservice.processor;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,6 +7,10 @@ import org.springframework.batch.item.ItemProcessor;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import buildservice.Build;
+import buildservice.storage.StorageService;
+import java.nio.file.Path;
+import buildservice.services.S3Services;
 
 
 public class BuildItemProcessor implements ItemProcessor<Build, Build> {
@@ -16,6 +20,12 @@ public class BuildItemProcessor implements ItemProcessor<Build, Build> {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    private StorageService storageService;
+
+    @Autowired
+    private S3Services s3Service;
 
     @Override
     public Build process(final Build build) throws Exception {
@@ -27,8 +37,13 @@ public class BuildItemProcessor implements ItemProcessor<Build, Build> {
 
         log.info("Converting (" + build + ") into (" + transformedBuild + ")");
 
+        Path tbx = storageService.loadTbx(build.getToolbox());
+        storageService.storeCtf(tbx.toFile(), build.getCtf());
+
         int updated = jdbcTemplate.update(DELETE_BUILD,build.getID());
         log.info("deleted (" + updated + ") records");
+
+        s3Service.uploadFile(build.getCtf());
 
         return transformedBuild;
     }

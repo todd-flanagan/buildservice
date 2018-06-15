@@ -24,6 +24,8 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.batch.item.database.builder.JdbcCursorItemReaderBuilder;
 import org.springframework.batch.item.database.JdbcCursorItemReader;
+import buildservice.Build;
+import buildservice.processor.BuildItemProcessor;
 
 @Configuration
 @EnableBatchProcessing

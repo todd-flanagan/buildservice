@@ -12,11 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 
 
-import buildservice.storage.StorageProperties;
 import buildservice.storage.StorageService;
 
 @SpringBootApplication
-@EnableConfigurationProperties(StorageProperties.class)
 public class Application implements CommandLineRunner{
 
     private static final Logger log = LoggerFactory.getLogger(Application.class);
