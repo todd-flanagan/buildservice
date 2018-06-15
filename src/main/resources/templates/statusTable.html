@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Build Status</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+</head>
+<body>
+<div class="container">
+  <h2>Queued Builds</h2>
+    <div th:if="${not #lists.isEmpty(queuedbuilds)}">
+        <table class="table table-striped">
+            <tr>
+                <th>Toolbox</th>
+                <th>CTF</th>
+
+            </tr>
+            <tr th:each="build : ${queuedbuilds}">
+                <td th:text="${build.toolbox}"></td>
+                <td th:text="${build.ctf}"></td>
+            </tr>
+        </table>
+    </div>
+  </div>
+    <div class="container">
+      <h2>Completed Builds</h2>
+        <div th:if="${not #lists.isEmpty(completedbuilds)}">
+            <table class="table table-striped">
+                <tr>
+                    <th>Toolbox</th>
+                    <th>CTF</th>
+
+                </tr>
+                <tr th:each="build : ${completedbuilds}">
+                    <td th:text="${build.toolbox}"></td>
+                    <td th:text="${build.ctf}"></td>
+                </tr>
+            </table>
+        </div>
+</div>
+
+</body>
+</html>
