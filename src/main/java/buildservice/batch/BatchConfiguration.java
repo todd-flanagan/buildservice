@@ -1,4 +1,4 @@
-package buildservice;
+package buildservice.batch;
 
 import javax.sql.DataSource;
 
@@ -24,9 +24,14 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.batch.item.database.builder.JdbcCursorItemReaderBuilder;
 import org.springframework.batch.item.database.JdbcCursorItemReader;
+<<<<<<< HEAD:src/main/java/buildservice/BatchConfiguration.java
 import buildservice.processor.BuildItemProcessor;
 import buildservice.processor.S3Processor;
 import buildservice.processor.DeployProcessor;
+=======
+import buildservice.Build;
+import buildservice.processor.BuildItemProcessor;
+>>>>>>> b68524816da2ed7b562774cfdb4dff581ac2e0db:src/main/java/buildservice/batch/BatchConfiguration.java
 
 @Configuration
 @EnableBatchProcessing
@@ -57,6 +62,7 @@ public class BatchConfiguration {
         return new BuildItemProcessor();
     }
 
+<<<<<<< HEAD:src/main/java/buildservice/BatchConfiguration.java
     @Bean
     public S3Processor s3Processor() {
         return new S3Processor();
@@ -66,6 +72,8 @@ public class BatchConfiguration {
     public DeployProcessor deployProcessor() {
         return new DeployProcessor();
     }
+=======
+>>>>>>> b68524816da2ed7b562774cfdb4dff581ac2e0db:src/main/java/buildservice/batch/BatchConfiguration.java
 
     @Bean
     public JdbcBatchItemWriter<Build> writer(DataSource dataSource) {
@@ -100,25 +108,4 @@ public class BatchConfiguration {
     }
     // end::jobstep[]
 
-    //place result in S3
-    @Bean
-    public Step step2(JdbcCursorItemReader<Build> reader, JdbcBatchItemWriter<Build> writer) {
-        return stepBuilderFactory.get("step2")
-            .<Build, Build> chunk(10)
-            .reader(reader)
-            .processor(s3Processor())
-            .writer(writer)
-            .build();
-    }
-
-    //fire deploy service
-    @Bean
-    public Step step3(JdbcCursorItemReader<Build> reader, JdbcBatchItemWriter<Build> writer) {
-        return stepBuilderFactory.get("step3")
-            .<Build, Build> chunk(10)
-            .reader(reader)
-            .processor(deployProcessor())
-            .writer(writer)
-            .build();
-    }
 }

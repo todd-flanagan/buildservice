@@ -18,9 +18,14 @@ bootJar {
     version =  '0.1.0'
 }
 
-
 repositories {
     mavenCentral()
+}
+
+dependencyManagement {
+ imports {
+    mavenBom 'com.amazonaws:aws-java-sdk-bom:1.11.228'
+ }
 }
 
 sourceCompatibility = 1.8
@@ -32,6 +37,8 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-batch")
     compile("org.springframework:spring-jdbc")
     compile("com.h2database:h2")
+    compile("com.amazonaws:aws-java-sdk-s3")
+    compile("javax.xml.bind:jaxb-api:2.3.0")
     testCompile("junit:junit")
     testCompile('org.springframework.boot:spring-boot-starter-test')
 

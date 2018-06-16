@@ -5,18 +5,17 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.Path;
 import java.util.stream.Stream;
+import java.io.File;
 
 public interface StorageService {
 
     void init();
 
-    void store(MultipartFile file);
+    void storeTbx(MultipartFile file);
+    void storeCtf(File file, String filename);
 
-    Stream<Path> loadAll();
-
-    Path load(String filename);
-
-    Resource loadAsResource(String filename);
+    Path loadCtf(String filename);
+    Path loadTbx(String filename);
 
     void deleteAll();
 
