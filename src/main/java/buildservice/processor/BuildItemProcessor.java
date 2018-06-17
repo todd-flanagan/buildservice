@@ -8,14 +8,11 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import buildservice.Build;
-<<<<<<< HEAD
-=======
 import buildservice.storage.StorageService;
 import java.nio.file.Path;
 import buildservice.services.S3Services;
 import buildservice.services.DeployService;
 
->>>>>>> b68524816da2ed7b562774cfdb4dff581ac2e0db
 
 public class BuildItemProcessor implements ItemProcessor<Build, Build> {
 

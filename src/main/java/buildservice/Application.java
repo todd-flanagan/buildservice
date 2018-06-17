@@ -12,10 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 
 
-<<<<<<< HEAD
-import buildservice.storage.StorageProperties;
-=======
->>>>>>> b68524816da2ed7b562774cfdb4dff581ac2e0db
 import buildservice.storage.StorageService;
 
 @SpringBootApplication

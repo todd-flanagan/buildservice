@@ -1,4 +1,4 @@
-package buildservice.batch;
+package buildservice;
 
 import javax.sql.DataSource;
 
@@ -24,8 +24,11 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.batch.item.database.builder.JdbcCursorItemReaderBuilder;
 import org.springframework.batch.item.database.JdbcCursorItemReader;
-import buildservice.Build;
 import buildservice.processor.BuildItemProcessor;
+import buildservice.processor.S3Processor;
+import buildservice.processor.DeployProcessor;
+import buildservice.batch.BuildRowMapper;
+import buildservice.batch.JobCompletionNotificationListener;
 
 @Configuration
 @EnableBatchProcessing
@@ -56,6 +59,15 @@ public class BatchConfiguration {
         return new BuildItemProcessor();
     }
 
+    @Bean
+    public S3Processor s3Processor() {
+        return new S3Processor();
+    }
+
+    @Bean
+    public DeployProcessor deployProcessor() {
+        return new DeployProcessor();
+    }
 
     @Bean
     public JdbcBatchItemWriter<Build> writer(DataSource dataSource) {
@@ -90,4 +102,25 @@ public class BatchConfiguration {
     }
     // end::jobstep[]
 
+    //place result in S3
+    @Bean
+    public Step step2(JdbcCursorItemReader<Build> reader, JdbcBatchItemWriter<Build> writer) {
+        return stepBuilderFactory.get("step2")
+            .<Build, Build> chunk(10)
+            .reader(reader)
+            .processor(s3Processor())
+            .writer(writer)
+            .build();
+    }
+
+    //fire deploy service
+    @Bean
+    public Step step3(JdbcCursorItemReader<Build> reader, JdbcBatchItemWriter<Build> writer) {
+        return stepBuilderFactory.get("step3")
+            .<Build, Build> chunk(10)
+            .reader(reader)
+            .processor(deployProcessor())
+            .writer(writer)
+            .build();
+    }
 }
